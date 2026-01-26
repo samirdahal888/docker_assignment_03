@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📝</text></svg>">
+    <title>Todo App</title>
+    <style>
+        body { font-family: Arial; max-width: 400px; margin: 50px auto; }
+        input { padding: 10px; width: 70%; }
+        button { padding: 10px; cursor: pointer; }
+        li { padding: 10px; margin: 5px 0; background: #f0f0f0; list-style: none; }
+    </style>
+</head>
+<body>
+    <h1>📝 Todo List</h1>
+    <input id="task" placeholder="Enter task">
+    <button onclick="add()">Add</button>
+    <ul id="list"></ul>
+
+    <script>
+        load();
+        async function load() {
+            const res = await fetch('/api/todos');
+            const todos = await res.json();
+            document.getElementById('list').innerHTML = todos.map(t => 
+                `<li>${t.task} <button onclick="del(${t.id})">❌</button></li>`
+            ).join('');
+        }
+        async function add() {
+            const task = document.getElementById('task').value;
+            await fetch('/api/todos', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({task})
+            });
+            document.getElementById('task').value = '';
+            load();
+        }
+        async function del(id) {
+            await fetch('/api/todos/' + id, {method: 'DELETE'});
+            load();
+        }
+    </script>
+</body>
+</html>
