@@ -1,33 +1,42 @@
-# 📝 3-Tier Todo App
+# 3-Tier Todo App
 
-## What is 3-Tier? (Like a Restaurant 🍕)
-```
-┌──────────────┐    ┌──────────────┐    ┌──────────────┐
-│   FRONTEND   │───▶│   BACKEND    │───▶│   DATABASE   │
-│  (Web Page)  │    │ (API Server) │    │  (Storage)   │
-│   Nginx      │    │   FastAPI    │    │  PostgreSQL  │
-└──────────────┘    └──────────────┘    └──────────────┘
-     │                                         │
-  Exposed                                   Hidden
-  Port 8080                              (Not exposed)
-```
+A simple todo application using Docker with 3 tiers: Frontend, Backend, and Database.
 
-## Run
+## Technologies Used
+
+- Frontend: Nginx with HTML/CSS/JavaScript
+- Backend: Python FastAPI
+- Database: PostgreSQL
+
+## How to Run
+
 ```bash
 docker-compose up --build
 ```
 
-## Open Browser
-http://localhost:8080
+Then open http://localhost:8080 in your browser.
 
-## Stop
+## How to Stop
+
 ```bash
 docker-compose down
 ```
 
-## ✅ Assignment Checklist
-- ✅ 3 containers (frontend, backend, database)
-- ✅ Docker networking (app-network)
-- ✅ Database NOT exposed
-- ✅ Docker Compose
-- ✅ Volume for data (todo-data)
+## Project Structure
+
+- `frontend/` - Nginx web server with HTML page
+- `backend/` - FastAPI server with REST API
+- `docker-compose.yml` - Connects all services together
+
+## Features
+
+- Add todos
+- Delete todos
+- Data persists after restart (using Docker volume)
+
+## Docker Setup
+
+- 3 separate containers for each tier
+- Private network for container communication
+- Database is not exposed to host (only frontend is exposed on port 8080)
+- Volume used for persistent data storage
