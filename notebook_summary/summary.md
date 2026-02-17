@@ -73,7 +73,7 @@
 - Integrates with CloudWatch for alerts
 - Can trigger automatic retraining
 
-## 99-clean-up.ipynb
+## 07-clean-up.ipynb
 **Removing all resources**
 
 - Deletes SageMaker Projects
